@@ -1,0 +1,49 @@
+enabled: true
+view-radius: 32
+update-interval-ticks: 1
+emitter-scan-interval-ticks: 4
+near-radius: 16
+far-interval-multiplier: 4
+track-mobs: true
+track-items: true
+suppress-vanished: true
+suppress-spectator: true
+cluster-radius: 1
+cluster-height: 2
+cluster-falloff: 2
+disabled-worlds: []
+mob-whitelist:
+  - ZOMBIE
+  - SKELETON
+  - PIGLIN
+  - DROWNED
+  - HUSK
+  - STRAY
+  - WITHER_SKELETON
+  - ZOMBIFIED_PIGLIN
+  - BLAZE
+equipment-slots:
+  - HAND
+  - OFF_HAND
+  - HEAD
+item-brightness:
+  TORCH: 14
+  LANTERN: 15
+  GLOWSTONE: 15
+  JACK_O_LANTERN: 15
+  SOUL_TORCH: 10
+  SOUL_LANTERN: 10
+  REDSTONE_TORCH: 7
+  SEA_LANTERN: 15
+  SHROOMLIGHT: 15
+  END_ROD: 14
+  CAMPFIRE: 14
+  SOUL_CAMPFIRE: 10
+  GLOW_BERRIES: 6
+  BLAZE_ROD: 10
+replaceable-blocks:
+  - AIR
+  - CAVE_AIR
+  - WATER
+  - SHORT_GRASS
+  - TALL_GRASS

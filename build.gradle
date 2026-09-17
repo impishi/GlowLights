@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group = 'impishi.imsag'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.papermc.io/repository/maven-public/' }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT'
+}
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 21
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+jar {
+    archiveFileName = "GlowLights-${version}.jar"
+}

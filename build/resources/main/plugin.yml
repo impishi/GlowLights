@@ -1,0 +1,19 @@
+name: GlowLights
+version: '1.0'
+main: impishi.imsag.GlowLights
+api-version: '1.21'
+folia-supported: true
+author: impishi
+description: Dynamic Lighting
+commands:
+  glowlights:
+    aliases: [gl, glowlight]
+    description: main command
+    usage: /gl <toggle|reload|status>
+permissions:
+  glowlights.toggle:
+    default: true
+  glowlights.reload:
+    default: op
+  glowlights.status:
+    default: op
