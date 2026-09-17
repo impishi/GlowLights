@@ -3,24 +3,29 @@ package impishi.imsag.util;
 import java.util.Arrays;
 
 public final class LongIntMap {
-
     private static final long EMPTY = Long.MIN_VALUE;
 
     private long[] keys;
     private int[] values;
     private int mask;
     private int size;
+    private int threshold;
 
     public LongIntMap() {
         this(64);
     }
 
     public LongIntMap(int cap) {
-        int c = Integer.highestOneBit(Math.max(16, cap - 1)) << 1;
-        keys = new long[c];
-        values = new int[c];
+        int capacity = 16;
+        while (capacity < cap) {
+            capacity <<= 1;
+        }
+
+        keys = new long[capacity];
+        values = new int[capacity];
         Arrays.fill(keys, EMPTY);
-        mask = c - 1;
+        mask = capacity - 1;
+        threshold = capacity - (capacity >> 2);
     }
 
     public int get(long key) {
@@ -34,22 +39,34 @@ public final class LongIntMap {
 
     public void put(long key, int value) {
         int i = probe(key);
-        if (keys[i] == EMPTY) {
-            keys[i] = key;
+
+        if (keys[i] != EMPTY) {
             values[i] = value;
-            if (++size * 4 > keys.length * 3) resize();
-        } else {
-            values[i] = value;
+            return;
+        }
+
+        keys[i] = key;
+        values[i] = value;
+
+        if (++size >= threshold) {
+            resize();
         }
     }
 
     public void mergeMax(long key, int value) {
         int i = probe(key);
+
         if (keys[i] == EMPTY) {
             keys[i] = key;
             values[i] = value;
-            if (++size * 4 > keys.length * 3) resize();
-        } else if ((value & 0xF) > (values[i] & 0xF)) {
+
+            if (++size >= threshold) {
+                resize();
+            }
+            return;
+        }
+
+        if ((value & 0xF) > (values[i] & 0xF)) {
             values[i] = value;
         }
     }
@@ -84,29 +101,54 @@ public final class LongIntMap {
     }
 
     private int probe(long key) {
-        int i = mix(key) & mask;
+        int i = hash(key) & mask;
+
         while (keys[i] != EMPTY && keys[i] != key) {
             i = (i + 1) & mask;
         }
+
         return i;
     }
 
-    private static int mix(long key) {
-        long h = key * 0x9E3779B97F4A7C15L;
-        return (int) (h ^ (h >>> 32));
+    private static int hash(long key) {
+        key *= 0x9E3779B97F4A7C15L;
+        key ^= key >>> 32;
+        key *= 0x9E3779B97F4A7C15L;
+        key ^= key >>> 32;
+        return (int) key;
     }
 
     private void resize() {
         long[] oldKeys = keys;
         int[] oldValues = values;
-        int cap = keys.length << 1;
-        keys = new long[cap];
-        values = new int[cap];
-        Arrays.fill(keys, EMPTY);
-        mask = cap - 1;
-        size = 0;
+
+        int newCapacity = oldKeys.length << 1;
+        long[] newKeys = new long[newCapacity];
+        int[] newValues = new int[newCapacity];
+        int newMask = newCapacity - 1;
+
+        Arrays.fill(newKeys, EMPTY);
+
         for (int i = 0; i < oldKeys.length; i++) {
-            if (oldKeys[i] != EMPTY) put(oldKeys[i], oldValues[i]);
+            long key = oldKeys[i];
+
+            if (key == EMPTY) {
+                continue;
+            }
+
+            int index = hash(key) & newMask;
+
+            while (newKeys[index] != EMPTY) {
+                index = (index + 1) & newMask;
+            }
+
+            newKeys[index] = key;
+            newValues[index] = oldValues[i];
         }
+
+        keys = newKeys;
+        values = newValues;
+        mask = newMask;
+        threshold = newCapacity - (newCapacity >> 2);
     }
 }
