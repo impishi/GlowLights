@@ -14,5 +14,5 @@ GlowLights lets players have dynamic light sources while moving around without n
 - Lightweight and optimized
 - No client-side mod required
 - Configurable light sources
-
+- Smooth lighting
 Simple dynamic lighting for your server without adding unnecessary overhead.
