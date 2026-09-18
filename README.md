@@ -16,3 +16,6 @@ GlowLights lets players have dynamic light sources while moving around without n
 - Configurable light sources
 - Smooth lighting
 Simple dynamic lighting for your server without adding unnecessary overhead.
+### Soon
+- **Packetevents** support
+- **-1.21** Support
