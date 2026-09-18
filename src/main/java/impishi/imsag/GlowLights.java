@@ -16,7 +16,25 @@ public final class GlowLights extends JavaPlugin {
     private GlowConfig cfg;
     private LightManager lights;
     private NamespacedKey offKey;
-
+    private final String pishi = """
+            &b
+            &b⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣤⠶⢦⡀⠀⠀⢀⣀⡀⠀⠀
+            &b⠀⠀⠀⣀⣤⣄⡀⠀⠀⠀⠀⠀⠀⢠⠖⠒⢆⠀⠀⠀⡏⠀⠀⠀⠙⣇⡞⠋⠙⢿⣷⠀
+            &b⠀⠀⢀⡟⠁⠉⠛⣧⠀⠀⠀⠀⣠⠇⠀⠀⠈⢇⠀⢸⠁⠀⠀⠀⠀⡟⠀⠀⠀⠀⣿⠃
+            &b⠀⠀⣾⠃⠀⠀⠀⠈⠁⠒⠊⠉⠁⠀⠀⠀⠀⠘⢢⡈⡆⠀⠀⠀⣰⠃⠀⠀⠀⠀⡟⠀
+            &b⠀⣀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡴⠋⠙⠲⡄⠀⠁⠀⠀⠀⢀⣞⠁⠀
+            &b⣰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡀⠀⡼⠁⠀⠀⠀⢧⠀⠀⠀⠀⠐⠋⠀⢱⡀
+            &b⡇⠀⠀⠀⣠⠀⠀⠀⠀⠀⠀⠀⠀⠀⠸⠃⠀⣏⠀⠸⣄⡤⠇⠀⠀⢀⡞⠀⠀⠀⢠⠇
+            &b⡇⠀⠀⠀⠉⠀⠀⢠⠀⣠⣄⣰⠀⠀⠀⠀⠀⠈⢧⡀⠀⠀⠀⠀⠀⢸⡀⠀⠀⡰⠃⠀
+            &b⠙⣄⠀⠀⠀⠀⠀⠈⠛⠁⠀⠀⠀⠀⠀⣀⣀⣴⠿⠃⠀⠀⠀⠀⠀⢀⡛⠒⠚⠁⠀⠀
+            &b⠀⠈⠳⠤⣀⣀⣀⣀⣀⣠⡤⠤⠔⠒⠈⠁⠀⠀⠀⠀⠀⠀⠀⢀⡴⠋⠀⠀⠀⠀⠀⠀
+            &b⠀⠀⠀⠀⣠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡖⠦⠤⣄⣀⡤⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀
+            &b⠀⠀⢀⡞⠁⠀⡄⠀⠀⠀⠀⠀⠀⠀⠀⢠⡛⣆⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            &b⠀⠸⣇⣀⣴⢀⣧⠀⠀⠀⠀⠀⠀⠀⢀⡏⠣⣈⠙⠉⢁⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            &b⠀⠀⠀⠀⠈⠉⠈⡇⢰⠒⠒⠒⢺⣠⠏⠀⠀⠈⠉⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            &b⠀⠀⠀⠀⠀⠀⠀⠙⠚⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+            """;
+            
     @Override
     public void onEnable() {
         saveDefaultConfig();
@@ -35,14 +53,24 @@ public final class GlowLights extends JavaPlugin {
         lights.start();
 
         getServer().getConsoleSender().sendMessage(
-                LEGACY.deserialize("&6ɢʟᴏᴡ&eʟɪɢʜᴛꜱ &f» &aᴇɴᴀʙʟᴇᴅ"));
+                LEGACY.deserialize(
+                        pishi
+                                + "  &aᴍᴀᴅᴇ ʙʏ &l&5impishi &f| &l&4imsag"
+                                + "\n  &6ɢʟᴏᴡ&eʟɪɢʜᴛꜱ &f» &aᴇɴᴀʙʟᴇᴅ"
+                )
+        );
     }
 
     @Override
     public void onDisable() {
         if (lights != null) lights.stop();
         getServer().getConsoleSender().sendMessage(
-                LEGACY.deserialize("&6ɢʟᴏᴡ&eʟɪɢʜᴛꜱ &f» &7ᴅɪꜱᴀʙʟᴇᴅ"));
+                LEGACY.deserialize(
+                        pishi
+                                + "  &aᴍᴀᴅᴇ ʙʏ &l&5impishi &f| &l&4imsag"
+                                + "\n  &6ɢʟᴏᴡ&eʟɪɢʜᴛꜱ &f» &7ᴅɪꜱᴀʙʟᴇᴅ"
+                )
+        );
     }
 
     public void reloadAll() {
